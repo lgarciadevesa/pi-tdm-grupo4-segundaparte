@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { db } from '../firebase/config';
 import Post from '../components/Post';
 
 function Home() {
   const [posteos, setPosteos] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect( () => {
     db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(
@@ -18,18 +17,9 @@ function Home() {
           })
         })
         setPosteos(posts)
-        setLoading(false)
       }
     )
   }, [])
-
-  if (loading) {
-    return (
-      <View style={styles.cargando}>
-        <ActivityIndicator size='large' color='green' />
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
@@ -54,11 +44,6 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 10,
     marginTop: 20,
-  },
-  cargando: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   titulo: {
     fontSize: 24,
