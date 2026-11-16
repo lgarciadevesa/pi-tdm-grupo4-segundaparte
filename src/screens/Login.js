@@ -75,8 +75,9 @@ function Login(props) {
                 null
             }
 
+            <Text style={styles.textoLogin}> ¿No tenés cuenta?</Text>
             <Pressable onPress={() => props.navigation.navigate('Register')}>
-                <Text style={styles.link}>Ir al registro</Text>
+                <Text style={styles.link}>Registrarme</Text>
             </Pressable>
 
         </View>
@@ -118,6 +119,11 @@ const styles = StyleSheet.create({
     link: {
         color: '#007bff',
         textAlign: 'center',
+    },
+    textoLogin: {
+        textAlign: 'center',
+        marginTop: 10,
+        marginBottom: 10,
     },
     error: {
         marginBottom: 10,
