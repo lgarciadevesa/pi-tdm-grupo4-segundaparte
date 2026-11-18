@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet, TextInput } from 'react-native';
 import { auth } from '../firebase/config';
 
@@ -7,6 +7,14 @@ function Login(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                props.navigation.navigate('HomeMenu', { screen: 'Home' });
+            }
+        })
+    }, [])
 
     function onSubmit() {
 
@@ -69,10 +77,10 @@ function Login(props) {
 
             {
                 error !== ''
-                ?
-                <Text style={styles.error}>{error}</Text>
-                :
-                null
+                    ?
+                    <Text style={styles.error}>{error}</Text>
+                    :
+                    null
             }
 
             <Text style={styles.textoLogin}> ¿No tenés cuenta?</Text>

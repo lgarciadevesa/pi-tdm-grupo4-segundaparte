@@ -1,11 +1,18 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { auth } from '../firebase/config';
 
 function Profile(props) {
+
+  function logout() {
+    auth.signOut()
+    props.navigation.navigate('Login')
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Mi perfil</Text>
 
-      <Pressable style={styles.boton} onPress={() => props.navigation.navigate('Login')}>
+      <Pressable style={styles.boton} onPress={() => logout()}>
         <Text style={styles.botonTexto}>Desloguearse</Text>
       </Pressable>
     </View>
