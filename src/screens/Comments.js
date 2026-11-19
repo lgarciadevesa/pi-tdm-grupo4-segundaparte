@@ -8,7 +8,7 @@ function Comments(props) {
     const [comentarios, setComentarios] = useState([]);
 
     useEffect(() => {
-        db.collection('comments').where('postId', '==', id).orderBy('createdAt', 'desc').onSnapshot(
+        db.collection('comments').where('postId', '==', id).onSnapshot(
             docs => {
                 let comments = [];
                 docs.forEach(doc => {
