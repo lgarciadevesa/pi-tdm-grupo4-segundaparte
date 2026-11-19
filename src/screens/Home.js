@@ -3,14 +3,14 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { db } from '../firebase/config';
 import Post from '../components/Post';
 
-function Home() {
+function Home(props) {
   const [posteos, setPosteos] = useState([]);
 
-  useEffect( () => {
+  useEffect(() => {
     db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(
-      docs =>{
+      docs => {
         let posts = [];
-        docs.forEach( doc => {
+        docs.forEach(doc => {
           posts.push({
             id: doc.id,
             data: doc.data()
@@ -29,9 +29,9 @@ function Home() {
         <Text>Todavía no hay posteos</Text>
       ) : (
         <FlatList
-          data={ posteos }
-          keyExtractor={ item => item.id.toString() }
-          renderItem={ ({item}) => <Post post={item}/> }
+          data={posteos}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({ item }) => <Post post={item} navigation={props.navigation} />}
         />
       )}
     </View>

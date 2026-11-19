@@ -31,6 +31,10 @@ function Post(props) {
         <Text style={styles.like}>Me gusta</Text>
       </Pressable>
       <Text>{props.post.data.likes.length} likes</Text>
+
+      <Pressable onPress={() => props.navigation.navigate('Comentarios', { id: props.post.id })}>
+        <Text style={styles.like}>Comentar</Text>
+      </Pressable>
     </View>
   );
 }
