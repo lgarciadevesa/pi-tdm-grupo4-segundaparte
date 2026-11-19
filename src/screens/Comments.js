@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import { FontAwesome } from '@expo/vector-icons';
 import { View, Text, TextInput, Pressable, FlatList, StyleSheet } from 'react-native';
 import { db, auth } from '../firebase/config';
 
 function Comments(props) {
-    const { id } = props.route.params
+    const { id, description, owner, likesCount } = props.route.params
     const [comentario, setComentario] = useState('');
     const [comentarios, setComentarios] = useState([]);
 
@@ -41,12 +42,21 @@ function Comments(props) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.titulo}>Comentarios del posteo</Text>
+            <Text style={styles.owner}>Publicado por: {owner}</Text>
+            <Text style={styles.titulo}>Comentarios del posteo: "{description}"</Text>
+            <Text style={styles.likes}>
+                <FontAwesome name="heart" size={16} color="red" /> {likesCount} likes
+            </Text>
 
             <FlatList
                 data={comentarios}
                 keyExtractor={item => item.id.toString()}
-                renderItem={({ item }) => <Text>{item.data.owner}: {item.data.comment}</Text>}
+                renderItem={({ item }) => (
+                    <View style={styles.comentario}>
+                        <Text style={styles.comentarioOwner}>{item.data.owner}:</Text>
+                        <Text>{item.data.comment}</Text>
+                    </View>
+                )}
             />
 
             <TextInput
@@ -71,10 +81,32 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginTop: 20,
     },
+    owner: {
+        fontWeight: 'bold',
+        color: '#555',
+        marginBottom: 5,
+    },
     titulo: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginBottom: 10,
+    },
+    likes: {
+        textAlign: 'right',
+        fontWeight: 'bold',
+        marginBottom: 15,
+    },
+    comentario: {
+        padding: 10,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderStyle: 'solid',
+        borderRadius: 6,
+        marginBottom: 10,
+    },
+    comentarioOwner: {
+        fontWeight: 'bold',
+        marginBottom: 5,
     },
     field: {
         height: 40,

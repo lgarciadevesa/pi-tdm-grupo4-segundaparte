@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FontAwesome } from '@expo/vector-icons';
 import { View, Text, Pressable, StyleSheet, FlatList } from 'react-native';
 import { auth, db } from '../firebase/config';
 
@@ -36,6 +37,9 @@ function Profile(props) {
       });
 
   }, []);
+  function borrarPosteo(id) {
+    db.collection('posts').doc(id).delete();
+  }
 
   function logout() {
     auth.signOut();
@@ -47,8 +51,8 @@ function Profile(props) {
       <Text style={styles.titulo}>Mi perfil</Text>
 
       <View style={styles.datos}>
-        <Text style={styles.username}>Usuario: {username}</Text>
-        <Text style={styles.email}>Email: {auth.currentUser.email}</Text>
+        <Text style={styles.username}>{username}</Text>
+        <Text style={styles.email}>{auth.currentUser.email}</Text>
       </View>
 
       <Text style={styles.subtitulo}>Mis posteos</Text>
@@ -58,16 +62,20 @@ function Profile(props) {
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <View style={styles.post}>
-            <Text>{item.data.description}</Text>
+            <Text style={styles.postOwner}>{item.data.owner}</Text>
+            <Text style={styles.postText}>{item.data.description}</Text>
             <Text style={styles.likes}>
-              Likes: {item.data.likes.length}
+              <FontAwesome name="heart" size={14} color="red" /> {item.data.likes.length} likes
             </Text>
+            <Pressable style={styles.botonEliminar} onPress={() => borrarPosteo(item.id)}>
+              <Text style={styles.botonTexto}>Eliminar</Text>
+            </Pressable>
           </View>
         )}
       />
 
       <Pressable style={styles.boton} onPress={() => logout()}>
-        <Text style={styles.botonTexto}>Desloguearse</Text>
+        <Text style={styles.botonTexto}>Cerrar sesión</Text>
       </Pressable>
     </View>
   );
@@ -84,17 +92,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
-  boton: {
-    backgroundColor: '#dc3545',
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 4,
-    marginVertical: 10,
-  },
-  botonTexto: {
-    color: '#fff',
-    textAlign: 'center',
-  },
   datos: {
     marginBottom: 20,
   },
@@ -104,6 +101,7 @@ const styles = StyleSheet.create({
   },
   email: {
     fontSize: 16,
+    color: '#555',
     marginTop: 5,
   },
   subtitulo: {
@@ -119,8 +117,36 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 5,
   },
+  postOwner: {
+    fontSize: 12,
+    color: '#555',
+    marginBottom: 5,
+  },
+  postText: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
   likes: {
     marginTop: 5,
+    marginBottom: 5,
+  },
+  botonEliminar: {
+    backgroundColor: '#dc3545',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 4,
+    alignSelf: 'flex-end',
+  },
+  boton: {
+    backgroundColor: '#dc3545',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 4,
+    marginVertical: 15,
+  },
+  botonTexto: {
+    color: '#fff',
+    textAlign: 'center',
   },
 });
 

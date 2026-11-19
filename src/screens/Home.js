@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Image } from 'react-native';
 import { db } from '../firebase/config';
 import Post from '../components/Post';
 
@@ -23,7 +23,14 @@ function Home(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Home</Text>
+      <View style={styles.header}>
+        <Image
+          style={styles.logo}
+          source={require('../../assets/logo.jpg')}
+          resizeMode='contain'
+        />
+        <Text style={styles.titulo}>Home</Text>
+      </View>
 
       {posteos.length === 0 ? (
         <Text>Todavía no hay posteos</Text>
@@ -45,10 +52,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 20,
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  logo: {
+    width: 38,
+    height: 38,
+    marginRight: 10,
+    borderRadius: 6,
+  },
   titulo: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
   },
 });
 

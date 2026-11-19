@@ -1,4 +1,5 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import firebase from 'firebase';
 import { db, auth } from '../firebase/config';
 
@@ -28,12 +29,18 @@ function Post(props) {
       <Text style={styles.descripcion}>{props.post.data.description}</Text>
 
       <Pressable onPress={() => likear()}>
-        <Text style={styles.like}>Me gusta</Text>
+        <Text style={styles.like}>
+          <FontAwesome name="heart" size={16} color="red" /> {props.post.data.likes.length} likes
+        </Text>
       </Pressable>
-      <Text>{props.post.data.likes.length} likes</Text>
 
-      <Pressable onPress={() => props.navigation.navigate('Comentarios', { id: props.post.id })}>
-        <Text style={styles.like}>Comentar</Text>
+      <Pressable onPress={() => props.navigation.navigate('Comentarios', {
+        id: props.post.id,
+        description: props.post.data.description,
+        owner: props.post.data.owner,
+        likesCount: props.post.data.likes.length
+      })}>
+        <Text style={styles.comentar}>Comentar</Text>
       </Pressable>
     </View>
   );
@@ -55,6 +62,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   like: {
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  comentar: {
     color: '#007bff',
     fontWeight: 'bold',
     marginBottom: 5,
