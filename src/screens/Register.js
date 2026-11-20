@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable, StyleSheet, TextInput } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import { auth, db } from '../firebase/config';
 
 function Register(props) {
@@ -26,6 +27,7 @@ function Register(props) {
                 })
                     .then(() => {
                         setError('');
+                        auth.signOut();
                         props.navigation.navigate('Login');
                     })
                     .catch(error => {
@@ -41,7 +43,14 @@ function Register(props) {
     return (
         <View style={styles.container}>
 
-            <Text style={styles.titulo}>Formulario de registro</Text>
+            <View style={styles.logoContenedor}>
+                <View style={styles.logo}>
+                    <FontAwesome name="cutlery" size={28} color="#fff" />
+                </View>
+            </View>
+
+            <Text style={styles.titulo}>Crear cuenta</Text>
+            <Text style={styles.subtitulo}>Sumate a la mesa</Text>
 
             <TextInput
                 style={styles.field}
@@ -89,9 +98,12 @@ function Register(props) {
                 null
             }
 
-            <Pressable onPress={() => props.navigation.navigate('Login')}>
-                <Text style={styles.link}>Ya tengo cuenta</Text>
-            </Pressable>
+            <View style={styles.filaLink}>
+                <Text style={styles.textoLogin}>¿Ya tenés cuenta? </Text>
+                <Pressable onPress={() => props.navigation.navigate('Login')}>
+                    <Text style={styles.link}>Iniciá sesión</Text>
+                </Pressable>
+            </View>
 
         </View>
     );
@@ -100,40 +112,70 @@ function Register(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 10,
-        marginTop: 20,
+        justifyContent: 'center',
+        paddingHorizontal: 20,
+        backgroundColor: '#FFF8F0',
+    },
+    logoContenedor: {
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    logo: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: '#D85A30',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     titulo: {
-        fontSize: 24,
+        fontSize: 26,
         fontWeight: 'bold',
+        color: '#4A1B0C',
+        textAlign: 'center',
+    },
+    subtitulo: {
+        color: '#993C1D',
+        textAlign: 'center',
         marginBottom: 20,
     },
     field: {
-        height: 20,
-        paddingVertical: 15,
+        height: 40,
         paddingHorizontal: 10,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#F5C4B3',
         borderStyle: 'solid',
-        borderRadius: 6,
-        marginVertical: 10,
+        borderRadius: 8,
+        backgroundColor: '#fff',
+        marginVertical: 6,
     },
     boton: {
-        backgroundColor: '#28a745',
-        paddingHorizontal: 10,
-        paddingVertical: 6,
-        borderRadius: 4,
+        backgroundColor: '#D85A30',
+        paddingVertical: 10,
+        borderRadius: 8,
+        marginTop: 10,
         marginBottom: 10,
     },
     botonTexto: {
         color: '#fff',
+        fontWeight: 'bold',
         textAlign: 'center',
+    },
+    filaLink: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 10,
+    },
+    textoLogin: {
+        color: '#993C1D',
     },
     link: {
-        color: '#007bff',
-        textAlign: 'center',
+        color: '#D85A30',
+        fontWeight: 'bold',
     },
     error: {
+        color: '#A32D2D',
+        textAlign: 'center',
         marginBottom: 10,
     },
 });

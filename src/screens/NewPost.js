@@ -25,12 +25,13 @@ function NewPost(props) {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Crear posteo</Text>
+      <Text style={styles.titulo}>Nueva receta</Text>
+      <Text style={styles.subtitulo}>Contale a la comunidad qué cocinaste</Text>
 
       <TextInput
         style={styles.field}
         keyboardType='default'
-        placeholder='Escribí tu posteo...'
+        placeholder='¿Qué cocinaste hoy?'
         onChangeText={text => setDescripcion(text)}
         value={descripcion}
       />
@@ -46,34 +47,37 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
-    marginTop: 20,
+    paddingTop: 20,
+    backgroundColor: '#FFF8F0',
   },
   titulo: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
+    color: '#4A1B0C',
+  },
+  subtitulo: {
+    color: '#993C1D',
+    marginBottom: 10,
   },
   field: {
     height: 40,
-    paddingVertical: 15,
     paddingHorizontal: 10,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#F5C4B3',
     borderStyle: 'solid',
-    borderRadius: 6,
+    borderRadius: 8,
+    backgroundColor: '#fff',
     marginVertical: 10,
   },
   button: {
-    backgroundColor: '#28a745',
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+    backgroundColor: '#D85A30',
+    paddingVertical: 10,
     alignItems: 'center',
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: '#28a745',
+    borderRadius: 8,
   },
   buttonText: {
     color: '#fff',
+    fontWeight: 'bold',
   }
 });
 

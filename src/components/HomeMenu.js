@@ -14,7 +14,7 @@ function HomeMenu() {
         component={HomeStack}
         options={{
           headerShown: false,
-          tabBarIcon: () => <FontAwesome name="home" size={24} color="black" />
+          tabBarIcon: () => <FontAwesome name="home" size={24} color="#D85A30" />
         }}
       />
       <Tab.Screen
@@ -22,7 +22,7 @@ function HomeMenu() {
         component={NewPost}
         options={{
           headerShown: false,
-          tabBarIcon: () => <FontAwesome name="plus-square" size={24} color="black" />
+          tabBarIcon: () => <FontAwesome name="plus-square" size={24} color="#D85A30" />
         }}
       />
       <Tab.Screen
@@ -30,7 +30,7 @@ function HomeMenu() {
         component={Profile}
         options={{
           headerShown: false,
-          tabBarIcon: () => <FontAwesome name="user" size={24} color="black" />
+          tabBarIcon: () => <FontAwesome name="user" size={24} color="#D85A30" />
         }}
       />
     </Tab.Navigator>

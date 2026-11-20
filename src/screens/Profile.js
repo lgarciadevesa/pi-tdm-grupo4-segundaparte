@@ -37,10 +37,6 @@ function Profile(props) {
       });
 
   }, []);
-  function borrarPosteo(id) {
-    db.collection('posts').doc(id).delete();
-  }
-
   function logout() {
     auth.signOut();
     props.navigation.navigate('Login');
@@ -48,28 +44,27 @@ function Profile(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Mi perfil</Text>
-
-      <View style={styles.datos}>
-        <Text style={styles.username}>{username}</Text>
-        <Text style={styles.email}>{auth.currentUser.email}</Text>
+      <View style={styles.header}>
+        <View style={styles.avatar}>
+          <FontAwesome name="user" size={22} color="#D85A30" />
+        </View>
+        <View>
+          <Text style={styles.username}>{username}</Text>
+          <Text style={styles.email}>{auth.currentUser.email}</Text>
+        </View>
       </View>
 
-      <Text style={styles.subtitulo}>Mis posteos</Text>
+      <Text style={styles.subtitulo}>Mis recetas ({posts.length})</Text>
 
       <FlatList
         data={posts}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <View style={styles.post}>
-            <Text style={styles.postOwner}>{item.data.owner}</Text>
             <Text style={styles.postText}>{item.data.description}</Text>
             <Text style={styles.likes}>
-              <FontAwesome name="heart" size={14} color="red" /> {item.data.likes.length} likes
+              <FontAwesome name="heart" size={14} color="#D85A30" /> {item.data.likes.length} Me gusta
             </Text>
-            <Pressable style={styles.botonEliminar} onPress={() => borrarPosteo(item.id)}>
-              <Text style={styles.botonTexto}>Eliminar</Text>
-            </Pressable>
           </View>
         )}
       />
@@ -85,67 +80,67 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
-    marginTop: 20,
+    paddingTop: 20,
+    backgroundColor: '#FFF8F0',
   },
-  titulo: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 20,
   },
-  datos: {
-    marginBottom: 20,
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#FAECE7',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
   },
   username: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: '#4A1B0C',
   },
   email: {
-    fontSize: 16,
-    color: '#555',
-    marginTop: 5,
+    fontSize: 14,
+    color: '#993C1D',
+    marginTop: 2,
   },
   subtitulo: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
+    color: '#4A1B0C',
     marginBottom: 10,
   },
   post: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#F5C4B3',
     borderStyle: 'solid',
-    borderRadius: 6,
-    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    padding: 12,
     marginVertical: 5,
-  },
-  postOwner: {
-    fontSize: 12,
-    color: '#555',
-    marginBottom: 5,
   },
   postText: {
     fontSize: 16,
-    marginBottom: 5,
+    color: '#4A1B0C',
+    marginBottom: 8,
   },
   likes: {
-    marginTop: 5,
-    marginBottom: 5,
-  },
-  botonEliminar: {
-    backgroundColor: '#dc3545',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 4,
-    alignSelf: 'flex-end',
+    color: '#D85A30',
+    fontWeight: 'bold',
   },
   boton: {
-    backgroundColor: '#dc3545',
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#A32D2D',
+    borderRadius: 8,
+    paddingVertical: 10,
     marginVertical: 15,
   },
   botonTexto: {
-    color: '#fff',
+    color: '#A32D2D',
+    fontWeight: 'bold',
     textAlign: 'center',
   },
 });

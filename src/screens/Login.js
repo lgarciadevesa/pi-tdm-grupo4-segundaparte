@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet, TextInput } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import { auth } from '../firebase/config';
 
 function Login(props) {
@@ -46,7 +47,14 @@ function Login(props) {
     return (
         <View style={styles.container}>
 
-            <Text style={styles.titulo}>Formulario de login</Text>
+            <View style={styles.logoContenedor}>
+                <View style={styles.logo}>
+                    <FontAwesome name="cutlery" size={28} color="#fff" />
+                </View>
+            </View>
+
+            <Text style={styles.titulo}>Sabores</Text>
+            <Text style={styles.subtitulo}>Compartí lo que cocinás</Text>
 
             <TextInput
                 style={styles.field}
@@ -72,7 +80,7 @@ function Login(props) {
             />
 
             <Pressable style={styles.boton} onPress={() => onSubmit()}>
-                <Text style={styles.botonTexto}>Entrar en la app</Text>
+                <Text style={styles.botonTexto}>Iniciar sesión</Text>
             </Pressable>
 
             {
@@ -83,10 +91,12 @@ function Login(props) {
                     null
             }
 
-            <Text style={styles.textoLogin}> ¿No tenés cuenta?</Text>
-            <Pressable onPress={() => props.navigation.navigate('Register')}>
-                <Text style={styles.link}>Registrarme</Text>
-            </Pressable>
+            <View style={styles.filaLink}>
+                <Text style={styles.textoLogin}>¿No tenés cuenta? </Text>
+                <Pressable onPress={() => props.navigation.navigate('Register')}>
+                    <Text style={styles.link}>Registrate</Text>
+                </Pressable>
+            </View>
 
         </View>
     );
@@ -95,45 +105,70 @@ function Login(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 10,
-        marginTop: 20,
+        justifyContent: 'center',
+        paddingHorizontal: 20,
+        backgroundColor: '#FFF8F0',
+    },
+    logoContenedor: {
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    logo: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: '#D85A30',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     titulo: {
-        fontSize: 24,
+        fontSize: 26,
         fontWeight: 'bold',
+        color: '#4A1B0C',
+        textAlign: 'center',
+    },
+    subtitulo: {
+        color: '#993C1D',
+        textAlign: 'center',
         marginBottom: 20,
     },
     field: {
-        height: 20,
-        paddingVertical: 15,
+        height: 40,
         paddingHorizontal: 10,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#F5C4B3',
         borderStyle: 'solid',
-        borderRadius: 6,
-        marginVertical: 10,
+        borderRadius: 8,
+        backgroundColor: '#fff',
+        marginVertical: 6,
     },
     boton: {
-        backgroundColor: '#28a745',
-        paddingHorizontal: 10,
-        paddingVertical: 6,
-        borderRadius: 4,
+        backgroundColor: '#D85A30',
+        paddingVertical: 10,
+        borderRadius: 8,
+        marginTop: 10,
         marginBottom: 10,
     },
     botonTexto: {
         color: '#fff',
+        fontWeight: 'bold',
         textAlign: 'center',
     },
-    link: {
-        color: '#007bff',
-        textAlign: 'center',
+    filaLink: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 10,
     },
     textoLogin: {
-        textAlign: 'center',
-        marginTop: 10,
-        marginBottom: 10,
+        color: '#993C1D',
+    },
+    link: {
+        color: '#D85A30',
+        fontWeight: 'bold',
     },
     error: {
+        color: '#A32D2D',
+        textAlign: 'center',
         marginBottom: 10,
     },
 });

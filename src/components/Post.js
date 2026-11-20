@@ -28,47 +28,61 @@ function Post(props) {
       <Text style={styles.owner}>{props.post.data.owner}</Text>
       <Text style={styles.descripcion}>{props.post.data.description}</Text>
 
-      <Pressable onPress={() => likear()}>
-        <Text style={styles.like}>
-          <FontAwesome name="heart" size={16} color="red" /> {props.post.data.likes.length} likes
-        </Text>
-      </Pressable>
+      <View style={styles.acciones}>
+        <Pressable onPress={() => likear()}>
+          <Text style={styles.like}>
+            <FontAwesome
+              name="heart"
+              size={16}
+              color={props.post.data.likes.includes(auth.currentUser.email) ? '#D85A30' : '#B4927F'}
+            /> {props.post.data.likes.length} Me gusta
+          </Text>
+        </Pressable>
 
-      <Pressable onPress={() => props.navigation.navigate('Comentarios', {
-        id: props.post.id,
-        description: props.post.data.description,
-        owner: props.post.data.owner,
-        likesCount: props.post.data.likes.length
-      })}>
-        <Text style={styles.comentar}>Comentar</Text>
-      </Pressable>
+        <Pressable onPress={() => props.navigation.navigate('Comentarios', {
+          id: props.post.id,
+          description: props.post.data.description,
+          owner: props.post.data.owner,
+          likesCount: props.post.data.likes.length
+        })}>
+          <Text style={styles.comentar}>
+            <FontAwesome name="comment-o" size={16} color="#993C1D" /> Comentar
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   post: {
-    padding: 10,
+    padding: 12,
     borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 6,
+    borderColor: '#F5C4B3',
+    borderRadius: 10,
+    backgroundColor: '#fff',
     marginBottom: 10,
   },
   owner: {
     fontWeight: 'bold',
+    color: '#993C1D',
     marginBottom: 5,
   },
   descripcion: {
+    color: '#4A1B0C',
     marginBottom: 10,
   },
+  acciones: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   like: {
+    color: '#D85A30',
     fontWeight: 'bold',
-    marginBottom: 5,
   },
   comentar: {
-    color: '#007bff',
+    color: '#993C1D',
     fontWeight: 'bold',
-    marginBottom: 5,
   },
 });
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, Image } from 'react-native';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import { db } from '../firebase/config';
 import Post from '../components/Post';
 
@@ -24,16 +25,14 @@ function Home(props) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image
-          style={styles.logo}
-          source={require('../../assets/logo.jpg')}
-          resizeMode='contain'
-        />
-        <Text style={styles.titulo}>Home</Text>
+        <View style={styles.logo}>
+          <FontAwesome name="cutlery" size={18} color="#fff" />
+        </View>
+        <Text style={styles.titulo}>Sabores</Text>
       </View>
 
       {posteos.length === 0 ? (
-        <Text>Todavía no hay posteos</Text>
+        <Text style={styles.vacio}>Todavía no hay posteos</Text>
       ) : (
         <FlatList
           data={posteos}
@@ -50,7 +49,8 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     paddingHorizontal: 10,
-    marginTop: 20,
+    paddingTop: 20,
+    backgroundColor: '#FFF8F0',
   },
   header: {
     flexDirection: 'row',
@@ -60,12 +60,19 @@ const styles = StyleSheet.create({
   logo: {
     width: 38,
     height: 38,
+    borderRadius: 19,
+    backgroundColor: '#D85A30',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginRight: 10,
-    borderRadius: 6,
   },
   titulo: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: '#4A1B0C',
+  },
+  vacio: {
+    color: '#993C1D',
   },
 });
 

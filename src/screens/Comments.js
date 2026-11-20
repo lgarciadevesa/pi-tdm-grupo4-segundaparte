@@ -42,11 +42,13 @@ function Comments(props) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.owner}>Publicado por: {owner}</Text>
-            <Text style={styles.titulo}>Comentarios del posteo: "{description}"</Text>
-            <Text style={styles.likes}>
-                <FontAwesome name="heart" size={16} color="red" /> {likesCount} likes
-            </Text>
+            <View style={styles.posteo}>
+                <Text style={styles.owner}>Publicado por {owner}</Text>
+                <Text style={styles.titulo}>{description}</Text>
+                <Text style={styles.likes}>
+                    <FontAwesome name="heart" size={16} color="#D85A30" /> {likesCount} Me gusta
+                </Text>
+            </View>
 
             <FlatList
                 data={comentarios}
@@ -62,7 +64,7 @@ function Comments(props) {
             <TextInput
                 style={styles.field}
                 keyboardType='default'
-                placeholder='Escribí tu comentario...'
+                placeholder='Escribí un comentario'
                 onChangeText={text => setComentario(text)}
                 value={comentario}
             />
@@ -79,56 +81,63 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         paddingHorizontal: 10,
-        marginTop: 20,
+        paddingTop: 20,
+        paddingBottom: 10,
+        backgroundColor: '#FFF8F0',
+    },
+    posteo: {
+        padding: 12,
+        borderRadius: 10,
+        backgroundColor: '#FAECE7',
+        marginBottom: 15,
     },
     owner: {
-        fontWeight: 'bold',
-        color: '#555',
+        color: '#993C1D',
         marginBottom: 5,
     },
     titulo: {
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 10,
+        color: '#4A1B0C',
+        marginBottom: 5,
     },
     likes: {
-        textAlign: 'right',
+        color: '#D85A30',
         fontWeight: 'bold',
-        marginBottom: 15,
     },
     comentario: {
         padding: 10,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#F5C4B3',
         borderStyle: 'solid',
-        borderRadius: 6,
+        borderRadius: 10,
+        backgroundColor: '#fff',
         marginBottom: 10,
     },
     comentarioOwner: {
         fontWeight: 'bold',
+        color: '#993C1D',
         marginBottom: 5,
     },
     field: {
         height: 40,
-        paddingVertical: 15,
         paddingHorizontal: 10,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#F5C4B3',
         borderStyle: 'solid',
-        borderRadius: 6,
+        borderRadius: 8,
+        backgroundColor: '#fff',
         marginVertical: 10,
     },
     button: {
-        backgroundColor: '#28a745',
-        paddingHorizontal: 10,
-        paddingVertical: 6,
+        backgroundColor: '#D85A30',
+        paddingVertical: 10,
         alignItems: 'center',
-        borderRadius: 4,
-        borderWidth: 1,
-        borderColor: '#28a745',
+        borderRadius: 8,
     },
     buttonText: {
         color: '#fff',
+        fontWeight: 'bold',
     }
 });
 
